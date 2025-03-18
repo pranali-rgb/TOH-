@@ -1,0 +1,25 @@
+import pandas as pd 
+import numpy as np 
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+# Sample Data: Exam scores for three teaching methods
+data = {'Method': ['A']*5 + ['B']*5 + ['C']*5,
+        'Score': [85, 88, 90, 92, 87, 75, 78, 80, 79, 77, 65, 68, 70, 72, 69]}
+
+df = pd.DataFrame(data)
+
+# Performing One-Way ANOVA
+model = ols('Score ~ C (Method) ', data=df).fit ()
+anova_table = sm.stats.anova_lm(model, type=2)
+print(anova_table)
+
+# Extract p-value
+p_value = anova_table["PR(>F)"].iloc[0]
+alpha = 0.05
+
+# Hypothesis Testing 
+if P_value < alpha:
+  print ("Reject Ho: There is a significant difference between groups.") 
+else:
+  print ("Fail to Reject Ho: No significant difference between groups.")

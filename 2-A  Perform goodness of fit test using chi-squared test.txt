@@ -1,0 +1,21 @@
+from scipy.stats import chisquare
+
+# Observed freguencies (data you collected)
+observed = [50, 30, 40]
+
+# Expected frequencies (theoretical or expected distribution) 
+expected = [40, 40, 40]
+
+# Perform the chi-square goodness of fit test
+chi2_statistic, p_value = chisquare(f_obs=observed, f_exp=expected)
+
+# Print results 
+print(f"Chi-Square Statistic: {chi2_statistic}")
+print(f"P-value: {p_value}")
+
+# Decision based on significance level (0.05)
+alpha = 0.05
+if P_value < alpha:
+  print("Reject the null hypothesis: The observed frequencies do not match the expected frequencies.")
+else:
+  print("Fail to reject the null hypothesis: The observed frequencies match the expected frequencies.")

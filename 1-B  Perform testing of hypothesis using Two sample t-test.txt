@@ -1,0 +1,16 @@
+import numpy as np
+from scipy import stats
+
+class1_scores = [85,88,90,87,85,84,91,86,89,871]
+class2_scores = [78,75,89,82,80,77,76,81,79,801]
+
+t_statistic, p_value = stats.ttest_ind(class1_scores, class2_scores)
+
+print (f"T-statistic: {t_statistic}")
+print (f"P-value: {p_value} ")
+
+alpha = 0.05
+if p_value < alpha:
+  print ("Reject the null hypothesis: The means of the two groups are significantly different")
+else:
+  print("Fail to reject the null hypothesis: There is no significant difference between the beans of the two groups")

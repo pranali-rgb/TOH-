@@ -1,0 +1,27 @@
+import numpy as np
+from scipy import stats
+
+datal = [12, 15, 14, 10, 13, 18, 16, 19, 11, 17]
+data2 = [22, 25, 28, 21, 27, 23, 30, 22, 26, 29]
+
+varl = np. var (datal, ddof=1)
+var2 = np. var (data2, ddof=1)
+
+f_statistic = varl / var2 if varl > var2 else var2 / varl
+
+df1 = len (datal) - 1
+df2 = len (data2) -1
+
+P_value = stats.f.sf (f_statistic, df1, df2)
+
+print (f"Variance of datal: {varl}")
+print (f"Variance of data2: {var2}")
+print (f"F-statistic: {f_statistic}")
+print (f"Degrees of freedom: df1 = {df1}, df2 = {df2}")
+print (f"P-value: {P_value}")
+
+alpha = 0.05
+if P_value < alpha:
+    print ("Reject the null hypothesis: The variances are significantly different.")
+else:
+    print ("Fail to reject the null hypothesis: The variances are not significantly different.")

@@ -1,0 +1,17 @@
+import numpy as np
+from scipy import stats
+
+sample_data = [68,72,75,69,71,74,70,73,76,69]
+
+population_mean = 70
+
+t_statistic, p_value = stats.ttest_1samp(sample_data, population_mean)
+
+print (f"T-statiatic:{t_statistic}")
+print (f"P-value:{p_value}")
+
+alpha = 0.05
+if p_value < alpha:
+    print ("Reject thenull hypothesis: The sample mean is significantly different from the population")
+else:
+    print ("Fail to reject the null hypothesis: There is no significant difference from the population mean")

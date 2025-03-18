@@ -1,0 +1,35 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Create a sample signal with two frequencies (10 Hz and 50 Hz)
+fs = 500  # Sampling frequency in Hz
+t = np.arange(0, 1, 1/fs) # Time vector for 1 second duration
+
+# Signal with two frequencies: 10 Hz and 50 Hz
+f1, f2 = 10, 50  # Define f1
+signal = np.sin(2 * np.pi * f1 * t) + 0.5 * np.sin(2 * np.pi * f2 * t) # Changed пр and пp to np
+
+# Step 2: Perform FFT
+n = len(t)     # Number of samples
+frequencies = np.fft.fftfreq(n, 1/fs)     # Frequency bins
+fft_values = np.fft.fft(signal)          # FET of the signal
+
+# Step 3: Plot the original signal and its spectrum
+plt.figure(figsize=(10, 6))
+
+# Plot time-domain signal
+plt.subplot(2, 1, 1)
+plt.plot(t, signal)
+plt.title("Time-domain Signal")
+plt.xlabel("Time [s]")
+plt.ylabel("Amplitude")
+
+# Plot frequency-domain (spectrum) signal
+plt.subplot(2, 1, 2)
+plt.plot(frequencies[:n//2], np.abs(fft_values)[:n//2]) # Plot only the positive frequencies
+plt.title("Frequency Spectrum")
+plt.xlabel("Frequency [Hz]")
+plt.ylabel("Amplitude")
+
+plt.tight_layout()
+plt.show()

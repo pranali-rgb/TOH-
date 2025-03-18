@@ -1,0 +1,21 @@
+import numpy as np
+from scipy import stats
+
+# Example data for two populations (rows represent populations, columns represent categories)
+data = np.array([[20, 30, 50], [30, 40, 30]])  # population 1 and population 2 counts
+
+# Perform the Chi-square test for homogeneity
+chi2_stat, P_value, dof, expected = stats.chi2_contingency (data)
+
+# Output the results
+print(f"Chi-square statistic: {chi2_stat}")
+print(f"P-value: {P_value}")
+print(f"Degrees of freedom: {dof} ")
+print(f"Expected frequencies: \n {expected} ")
+
+# Decision based on p-value
+alpha = 0.05
+if P_value < alpha:
+    print ("Reject the null hypothesis: The populations do not have the same distribution.") 
+else:
+    print ("Fail to reject the null hypothesis: The populations have the same distribution.")

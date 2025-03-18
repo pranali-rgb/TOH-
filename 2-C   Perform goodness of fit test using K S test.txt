@@ -1,0 +1,19 @@
+import numpy as np 
+from scipy.stats import kstest, norm
+
+# Generate a sample dataset (replace with your data)
+data = np.random.normal(loc=0, scale=1, size=100)     # Generate 100 samples from N(O, 1)
+
+# Perform the KS test against the normal distribution with mean=0, std=1
+ks_statistic, p_value = kstest(data, 'norm', args=(0, 1))
+
+# Print results
+print(f"KS Statistic: {ks_statistic}")
+print(f"P-value: {p_value}")
+
+# Decision based on gignificance level (0.05)
+alpha = 0.05
+if p_value < alpha:
+  print ("Reject the null hypothesis: The data does not follow the normal distribution.")
+else:
+  print ("Fail to reject the null hypothesis: The data follows the normal distribution.")

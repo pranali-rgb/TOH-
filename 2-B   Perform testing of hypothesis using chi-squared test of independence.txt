@@ -1,0 +1,26 @@
+import numpy as np 
+from scipy.stats import chi2_contingency
+
+# Define the contingency table (observed frequencies) 
+data = np.array ([
+    [60, 40],  # High School
+    [80, 20],  # Bachelor's
+    [90, 10]   # Master's
+])
+
+# Perform the Chi-Square Test of Independence
+chi2_statistic, p_value, dof, expected = chi2_contingency(data)
+
+# Print the results 
+print("Chi-Square Statistic:", chi2_statistic)
+print("P-value:", p_value)
+print("Degrees of Freedom:", dof)
+print("Expected Frequencies:")
+print(expected)
+
+# Decision based on significance level (alpha = 0.05)
+alpha = 0.05
+if p_value < alpha:
+  print("Reject the null hypothesis: The variables are not independent.") 
+else:
+  print("Fail to reject the null hypothesis: The variables are independent.")

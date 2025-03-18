@@ -1,0 +1,27 @@
+import pandas as pd 
+import numpy as np 
+import statsmodels.api as sm 
+from statsmodels.formula.api import ols
+
+# Sample Data
+data = {'Method': ['A']*6 + ['B']*6,
+        'Gender': ['M', 'F']*6,
+        'Score': [85, 80, 78, 90, 88, 87, 75, 70, 68, 79, 77, 76]}
+
+df = pd.DataFrame(data)
+
+# Performing Two-Way ANOVA
+model = ols('Score ~ C(Method) + C(Gender) + C(Method) : C(Gender)', data=df).fit()
+anova_table = sm.stats.anova_lm(model, type=2)
+print(anova_table)
+
+# Extract p-values
+p_values = anova_table["PR(>F)"]
+alpha = 0.05
+
+# Hypothesis Testing
+for factor, p in p_values.items():
+  if p < alpha:
+    print (f"Reject Ho for (factor): Significant effect detected.")
+else:
+  print (f"Fail to Reject Ho for (factor): No significant effect detected.")

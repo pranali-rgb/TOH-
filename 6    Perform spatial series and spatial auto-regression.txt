@@ -1,0 +1,35 @@
+import numpy as np
+import pandas as pd
+import libpysal
+from spreg import OLS, GM_Lag
+import matplotlib.pyplot as plt
+
+data = {
+    'id': [1, 2, 3, 4, 5],
+    'lat': [34.05, 34.07, 34.08, 34.10, 34.12],
+    'lon': [-118.25, -118.27, -118.29, -118.30, -118.32],
+    'value': [2.5, 3.6, 4.2, 5.0, 5.4]
+}
+
+df = pd.DataFrame(data)
+
+coords = np.array(df[['lat', 'lon']])
+W = libpysal.weights.KNN.from_array(coords, k=2)
+
+plt.scatter(df['lon'], df['lat'], c=df['value'], cmap='viridis')
+plt.colorbar(label='Value')
+plt.title('Spatial Data Visualization')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+Y = df['value'].values
+X = np.ones((df.shape[0], 1))
+
+sar_model = GM_Lag(Y, X, w=w, yend=None, q=None)
+print("Spatial Autoregression Results (SAR - GM Lag):") 
+print(sar_model. summary)
+
+ols_model = OLS(Y, X)
+print("\nOLS Results for Comparison:")
+print(ols_model.summary)

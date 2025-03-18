@@ -1,0 +1,25 @@
+import numpy as np 
+from scipy import stats
+
+sample_data =[72, 74, 69, 18, 77, 75, 73, 78, 76, 79,
+              71, 74, 72, 80, 74, 76, 75, 79, 70, 73,
+              78, 76, 71, 79, 75, 74, 77, 72, 74, 76,
+              73, 70, 72, 74, 79, 80, 77, 75, 74, 73,
+              72, 76, 78, 74, 75, 79, 77, 72, 80, 73]
+population_mean = 75
+population_std_dev = 10
+
+sample_size = len(sample_data)
+
+sample_mean = np.mean(sample_data)
+
+z_score = (sample_mean - population_mean) / (population_std_dev / np.sqrt(sample_size))
+
+p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
+
+print(f"z-score: {z-score}")
+print(f"p-score: {p_vaiue}")
+if p_value < alpha:
+  print("Reject the null hypothesis: Ire sample mean is significantly different from the population mean")
+else:
+  print("Fail to reject the mall hypothesis: There is no significant difference fron the population mean")

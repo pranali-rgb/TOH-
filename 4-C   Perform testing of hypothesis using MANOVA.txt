@@ -1,0 +1,27 @@
+import pandas as pd 
+import numpy as np 
+import statsmodels.api as sm 
+from statsmodels.formula.api import ols 
+from statsmodels.multivariate.manova import MANOVA
+
+# Sample Data: Two dependent variables (WeightLoss and SugarReduction)
+data = {'Diet': ['A']*5 + ['B']*5 + ['C']*5,
+        'WeightLoss': [3, 2.5, 3.2, 3.8, 3.1, 5, 5.5, 5.2, 5.3, 7, 7.5, 7.2, 7.8, 7.3, 6], # Added a value to make it 15
+        'SugarReduction': [10, 12, 11, 13, 14, 18, 19, 17, 20, 18, 25, 27, 26, 28,30]} # remove extra '30'
+
+df = pd.DataFrame(data)
+
+# Performing MANOVA
+manova = MANOVA.from_formula('WeightLoss + SugarReduction ~ Diet', data=df)
+result = manova.mv_test()
+print (result)
+
+# Extract p-value
+p_value = result.results['Diet']['stat']['Pr > F'].iloc[0]
+alpha = 0.05
+
+# Hypothesis Testing 
+if p_value < alpha:
+  print ("Reject Ho: Diet has a significant effect on at least one dependent variable.")
+else:
+  print ("Fail to Reject Ho: No significant effect of Diet on the dependent variables.")
